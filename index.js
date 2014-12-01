@@ -182,6 +182,7 @@ FA.prototype._readReverse = function (start, end, cb, rev) {
         function (err, bytesRead, buf) {
             if (err) return cb(err);
             if (bytesRead === 0 || offset < 0) {
+                if (!lines) return cb(null, null); // If no lines returned, will fail with lines.length, return null -- hdn8
                 if (!rev) {
                     lines.forEach(function (xs) {
                         cb(null, Buffer(xs));
